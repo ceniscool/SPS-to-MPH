@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>SPS to MPH Converter</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -20,7 +20,7 @@
       background: #fff;
       padding: 25px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 400px;
       position: relative;
@@ -76,7 +76,7 @@
       display: none;
       max-width: 240px;
       font-size: 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       z-index: 1000;
     }
 
@@ -109,64 +109,64 @@
     <h2>SPS → MPH Converter</h2>
 
     <label for="sps">Enter SPS (Studs per Second):</label>
-    <input type="number" id="sps" placeholder="e.g. 10">
+    <input type="number" id="sps" placeholder="e.g. 10" />
 
     <label for="result">Speed in MPH:</label>
-    <input type="text" id="result" readonly value="0.63">
+    <input type="text" id="result" readonly value="0.63" />
 
     <div class="note">
-      <strong>Conversion Rate:</strong><br>
-      1 SPS ≈ 0.6262 MPH<br>
-      <small>1 stud = 0.9184 ft<br>0.9184 ft/s = 0.6262 MPH</small>
+      <strong>Conversion Rate:</strong><br />
+      1 SPS ≈ 0.6262 MPH<br />
+      <small>1 stud = 0.9184 ft<br />0.9184 ft/s = 0.6262 MPH</small>
     </div>
   </div>
 
   <!-- Yellow Warning -->
   <div id="yellowWarning" class="warning-box warning-yellow">
     <span class="icon">⚠️</span>
-    Speed is below 30 MPH.<br>Drive cautiously.
+    Speed is above 50 MPH. Drive cautiously unless otherwise posted.
   </div>
 
   <!-- Red Warning -->
   <div id="redWarning" class="warning-box warning-red">
     <span class="icon">🚨</span>
-    You're over the limit!<br><br>
+    You're speeding!<br /><br />
     <div class="fines">
-      10 Over — $40<br>
-      20 Over — $80<br>
-      30 Over — $120<br>
-      40 Over — $160<br>
-      50+ Over — $200 + Reckless
+      10 Over — $40<br />
+      20 Over — $80<br />
+      30 Over — $120<br />
+      40 Over — $160<br />
+      50+ Over — $200 + Reckless Driving
     </div>
   </div>
 
   <script>
     const multiplier = 0.6262074377908017;
-    const spsInput = document.getElementById('sps');
-    const resultBox = document.getElementById('result');
+    const spsInput = document.getElementById("sps");
+    const resultBox = document.getElementById("result");
 
-    const yellowWarning = document.getElementById('yellowWarning');
-    const redWarning = document.getElementById('redWarning');
+    const yellowWarning = document.getElementById("yellowWarning");
+    const redWarning = document.getElementById("redWarning");
 
     function formatNumber(num) {
       return num.toLocaleString(undefined, {
         minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+        maximumFractionDigits: 2,
       });
     }
 
     function updateWarnings(mph) {
-      yellowWarning.style.display = 'none';
-      redWarning.style.display = 'none';
+      yellowWarning.style.display = "none";
+      redWarning.style.display = "none";
 
-      if (mph < 30 && mph > 0) {
-        yellowWarning.style.display = 'block';
-      } else if (mph >= 30) {
-        redWarning.style.display = 'block';
+      if (mph >= 80) {
+        redWarning.style.display = "block";
+      } else if (mph >= 50) {
+        yellowWarning.style.display = "block";
       }
     }
 
-    spsInput.addEventListener('input', () => {
+    spsInput.addEventListener("input", () => {
       const value = parseFloat(spsInput.value);
       if (!isNaN(value)) {
         const result = value * multiplier;
