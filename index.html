@@ -74,7 +74,7 @@
       padding: 15px;
       border-radius: 8px;
       display: none;
-      max-width: 240px;
+      max-width: 280px;
       font-size: 14px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       z-index: 1000;
@@ -121,13 +121,19 @@
     </div>
   </div>
 
-  <!-- Yellow Warning -->
-  <div id="yellowWarning" class="warning-box warning-yellow">
+  <!-- Yellow Warning: caution 50+ -->
+  <div id="yellowCaution" class="warning-box warning-yellow">
     <span class="icon">⚠️</span>
     Speed is above 50 MPH. Drive cautiously unless otherwise posted.
   </div>
 
-  <!-- Red Warning -->
+  <!-- Yellow Warning: slow down 80 to 99.99 -->
+  <div id="yellowSlowdown" class="warning-box warning-yellow">
+    <span class="icon">⚠️</span>
+    You're going fast — please slow down!
+  </div>
+
+  <!-- Red Warning: 100+ MPH -->
   <div id="redWarning" class="warning-box warning-red">
     <span class="icon">🚨</span>
     You're speeding!<br /><br />
@@ -145,7 +151,8 @@
     const spsInput = document.getElementById("sps");
     const resultBox = document.getElementById("result");
 
-    const yellowWarning = document.getElementById("yellowWarning");
+    const yellowCaution = document.getElementById("yellowCaution");
+    const yellowSlowdown = document.getElementById("yellowSlowdown");
     const redWarning = document.getElementById("redWarning");
 
     function formatNumber(num) {
@@ -156,13 +163,16 @@
     }
 
     function updateWarnings(mph) {
-      yellowWarning.style.display = "none";
+      yellowCaution.style.display = "none";
+      yellowSlowdown.style.display = "none";
       redWarning.style.display = "none";
 
-      if (mph >= 80) {
+      if (mph >= 100) {
         redWarning.style.display = "block";
+      } else if (mph >= 80) {
+        yellowSlowdown.style.display = "block";
       } else if (mph >= 50) {
-        yellowWarning.style.display = "block";
+        yellowCaution.style.display = "block";
       }
     }
 
