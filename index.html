@@ -15,7 +15,6 @@
       align-items: flex-start;
       min-height: 100vh;
     }
-
     .container {
       background: #fff;
       padding: 25px;
@@ -25,20 +24,17 @@
       max-width: 400px;
       position: relative;
     }
-
     h2 {
       text-align: center;
       margin-bottom: 20px;
       color: #333;
     }
-
     label {
       display: block;
       margin-bottom: 6px;
       font-weight: 600;
       color: #555;
     }
-
     input {
       width: 100%;
       padding: 10px;
@@ -48,12 +44,10 @@
       margin-bottom: 20px;
       box-sizing: border-box;
     }
-
     input[readonly] {
       background-color: #f0f0f0;
       font-weight: bold;
     }
-
     .note {
       font-size: 13px;
       background-color: #eaf1ff;
@@ -62,11 +56,9 @@
       border-radius: 5px;
       color: #333;
     }
-
     .note small {
       color: #666;
     }
-
     .warning-box {
       position: fixed;
       right: 20px;
@@ -74,29 +66,25 @@
       padding: 15px;
       border-radius: 8px;
       display: none;
-      max-width: 280px;
+      max-width: 300px;
       font-size: 14px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       z-index: 1000;
     }
-
     .warning-yellow {
       background-color: #fff8e1;
       border-left: 5px solid #fdd835;
       color: #795548;
     }
-
     .warning-red {
       background-color: #ffebee;
       border-left: 5px solid #e53935;
       color: #b71c1c;
     }
-
     .warning-box .icon {
       font-weight: bold;
       margin-right: 6px;
     }
-
     .fines {
       margin-top: 10px;
       font-size: 13px;
@@ -118,25 +106,27 @@
       <strong>Conversion Rate:</strong><br />
       1 SPS ≈ 0.6262 MPH<br />
       <small>1 stud = 0.9184 ft<br />0.9184 ft/s = 0.6262 MPH</small>
+
+    <h5>If convertor doesn't state your going fast : ex, 50 in a 30 then just slow down, convertor is supposed to warn if your going above the maxium found speed limit in the State of Firestone ™️</h5>
     </div>
   </div>
 
-  <!-- Yellow Warning: caution 50+ -->
-  <div id="yellowCaution" class="warning-box warning-yellow">
+  <!-- Yellow Warning: 80-89 -->
+  <div id="yellowSlow" class="warning-box warning-yellow">
     <span class="icon">⚠️</span>
-    Speed is above 50 MPH. Drive cautiously unless otherwise posted.
+    Speed is between 80 and 89 MPH. Slow down unless otherwise posted.
   </div>
 
-  <!-- Yellow Warning: slow down 80 to 99.99 -->
-  <div id="yellowSlowdown" class="warning-box warning-yellow">
+  <!-- Yellow Warning: 90-99 -->
+  <div id="yellowTenAbove" class="warning-box warning-yellow">
     <span class="icon">⚠️</span>
-    You're going fast — please slow down!
+    You are 10 MPH above the max speed limit. Please slow down.
   </div>
 
-  <!-- Red Warning: 100+ MPH -->
+  <!-- Red Warning: 100-130 -->
   <div id="redWarning" class="warning-box warning-red">
     <span class="icon">🚨</span>
-    You're speeding!<br /><br />
+    You are over the speed limit!<br /><br />
     <div class="fines">
       10 Over — $40<br />
       20 Over — $80<br />
@@ -151,8 +141,8 @@
     const spsInput = document.getElementById("sps");
     const resultBox = document.getElementById("result");
 
-    const yellowCaution = document.getElementById("yellowCaution");
-    const yellowSlowdown = document.getElementById("yellowSlowdown");
+    const yellowSlow = document.getElementById("yellowSlow");
+    const yellowTenAbove = document.getElementById("yellowTenAbove");
     const redWarning = document.getElementById("redWarning");
 
     function formatNumber(num) {
@@ -163,16 +153,16 @@
     }
 
     function updateWarnings(mph) {
-      yellowCaution.style.display = "none";
-      yellowSlowdown.style.display = "none";
+      yellowSlow.style.display = "none";
+      yellowTenAbove.style.display = "none";
       redWarning.style.display = "none";
 
-      if (mph >= 100) {
+      if (mph >= 100 && mph <= 130) {
         redWarning.style.display = "block";
-      } else if (mph >= 80) {
-        yellowSlowdown.style.display = "block";
-      } else if (mph >= 50) {
-        yellowCaution.style.display = "block";
+      } else if (mph >= 90 && mph < 100) {
+        yellowTenAbove.style.display = "block";
+      } else if (mph >= 80 && mph < 90) {
+        yellowSlow.style.display = "block";
       }
     }
 
